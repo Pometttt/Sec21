@@ -26,6 +26,20 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* ล็อครูปภาพโลโก้ไว้ที่มุมขวาบนอย่างมั่นคง */
+        .fixed-logo {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .fixed-logo img {
+            width: 130px;
+            height: auto;
+            object-fit: contain;
+            mix-blend-mode: screen;
+        }
+
         .sub-btn {
             padding: 10px 20px;
             margin: 6px;
@@ -57,40 +71,40 @@
             color: #333;
         }
 
-        h2, h3 { 
-            text-align: center; 
-            margin-bottom: 15px; 
-            color: #1e3c72; 
+        h2, h3 { 
+            text-align: center; 
+            margin-bottom: 15px; 
+            color: #1e3c72; 
         }
 
         .form-group { margin-bottom: 15px; }
 
-        label { 
-            display: block; 
-            margin-bottom: 5px; 
-            font-weight: bold; 
+        label { 
+            display: block; 
+            margin-bottom: 5px; 
+            font-weight: bold; 
             font-size: 14px;
         }
 
         input[type="text"], input[type="password"], input[type="date"], select {
-            width: 100%; 
-            padding: 12px; 
-            border: 1px solid #ccc; 
-            border-radius: 6px; 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 6px; 
             font-size: 15px;
             box-sizing: border-box;
             text-align: center;
         }
 
         .submit-btn {
-            width: 100%; 
-            padding: 12px; 
-            background: #0072ff; 
-            color: white; 
-            border: none; 
-            border-radius: 6px; 
-            font-size: 16px; 
-            cursor: pointer; 
+            width: 100%; 
+            padding: 12px; 
+            background: #0072ff; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            font-size: 16px; 
+            cursor: pointer; 
             font-weight: bold;
         }
         .submit-btn:hover { background: #0055cc; }
@@ -110,14 +124,14 @@
             box-sizing: border-box;
         }
 
-        .logout-btn { 
-            background: #ff4d4d; 
-            padding: 6px 12px; 
-            font-size: 12px; 
-            color: white; 
-            border: none; 
-            border-radius: 4px; 
-            cursor: pointer; 
+        .logout-btn { 
+            background: #ff4d4d; 
+            padding: 6px 12px; 
+            font-size: 12px; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
             font-weight: bold;
         }
         .logout-btn:hover { background: #cc0000; }
@@ -163,14 +177,14 @@
         }
 
         table {
-            width: 100%; 
-            border-collapse: collapse; 
+            width: 100%; 
+            border-collapse: collapse; 
             background: white;
             margin-top: 10px;
         }
         th, td {
-            padding: 10px; 
-            border: 1px solid #ddd; 
+            padding: 10px; 
+            border: 1px solid #ddd; 
             text-align: center;
         }
     </style>
@@ -180,17 +194,21 @@
 </head>
 <body>
 
+    <div class="fixed-logo">
+        <img src="IMG_0746.PNG" alt="Logo"> 
+    </div>
+
     <div id="loginSection" class="container">
         <h2>ระบบตรวจสอบพฤติกรรม นตท.</h2>
         <h3>ชั้นปีที่ 2 ตอน 21</h3>
         <form id="loginForm" onsubmit="handleLogin(event)">
             <div class="form-group">
-                <label for="username">ชื่อผู้ใช้งาน / เลขประจำตัว</label>
-                <input type="text" id="username" placeholder="กรอกชื่อผู้ใช้ หรือเลขประจำตัว" required>
+                <label for="username">ชื่อผู้ใช้งาน (เลขประจำตัว 5 หลัก)</label>
+                <input type="text" id="username" pattern="\d{5}" maxlength="5" placeholder="ตัวเลข 5 หลัก เช่น 12345" required>
             </div>
             <div class="form-group">
-                <label for="password">รหัสผ่าน</label>
-                <input type="password" id="password" placeholder="กรอกรหัสผ่าน" required>
+                <label for="password">รหัสผ่าน (5 หลัก)</label>
+                <input type="password" id="password" pattern="\d{5}" maxlength="5" placeholder="รหัสผ่านตัวเลข 5 หลัก" required>
             </div>
             <button type="submit" class="submit-btn">เข้าสู่ระบบ</button>
         </form>
@@ -201,10 +219,6 @@
         <div class="user-info">
             <span>ผู้ใช้งานปัจจุบัน: <strong id="displayUser">อาจารย์ผู้ควบคุม</strong></span>
             <button class="logout-btn" onclick="handleLogout()">ออกจากระบบ</button>
-        </div>
-
-        <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
-            <img src="IMG_0746.PNG" alt="Logo" style="width: 130px; height: auto; object-fit: contain; mix-blend-mode: screen;"> 
         </div>
 
         <h1 style="text-align: center; color: white; margin-bottom: 20px;">ระบบจัดการเวลาเรียนและตรวจสอบพฤติกรรมนตท.ชั้นปีที่ 2 ตอน 21</h1>
@@ -342,22 +356,22 @@
     </div>
 
     <script>
-        // ข้อมูล นตท. ต้นแบบ (หากมีรายชื่อเพิ่มสามารถนำมาใส่ในอาร์เรย์นี้ได้เลยครับ)
+        // ข้อมูล นตท. ต้นแบบ
         const studentsList = [
             { id: 1, name: "นตท.ปรเมศวร์ จงชมผา" },
             { id: 2, name: "นตท. ภานุพงศ์ พุทสุข" },
             { id: 3, name: "นตท.ภูพริษฐ์ แสงมรกต" }
         ];
 
-        // ⚠️ บล็อกสำคัญ: นำรหัสที่ได้จากเว็บแอป Firebase Console ของคุณมาวางทับบล็อกนี้
+        // บล็อกเชื่อมต่อ Firebase Config ของคุณ
         const firebaseConfig = {
             apiKey: "AIzaSyCOMkbs-zD4zSMH3suIsfYQ0cgUl1Jfb9o",
-  authDomain: "afaps68--sec21.firebaseapp.com",
-  projectId: "afaps68--sec21",
-  storageBucket: "afaps68--sec21.firebasestorage.app",
-  messagingSenderId: "6604547495",
-  appId: "1:6604547495:web:d2ce84caeba121e3550282",
-  measurementId: "G-X703072VSK"
+            authDomain: "afaps68--sec21.firebaseapp.com",
+            projectId: "afaps68--sec21",
+            storageBucket: "afaps68--sec21.firebasestorage.app",
+            messagingSenderId: "6604547495",
+            appId: "1:6604547495:web:d2ce84caeba121e3550282",
+            measurementId: "G-X703072VSK"
         };
         
         var database = null;
@@ -366,7 +380,7 @@
             database = firebase.database();
         }
 
-        // จัดการโหลดรายชื่อลงตารางเช็กชื่อแบบไดนามิก
+        // โหลดรายชื่อลงตารางเช็กชื่อ
         const tbody = document.getElementById('attendance-tbody');
         studentsList.forEach(std => {
             tbody.innerHTML += `
@@ -383,7 +397,6 @@
             `;
         });
 
-        // ฟังก์ชันระบบจัดการสลับหน้าจอระหว่าง รายวัน กับ ตลอดปี
         function switchPage(page) {
             document.getElementById('tabDaily').classList.remove('active');
             document.getElementById('tabYearly').classList.remove('active');
@@ -396,26 +409,39 @@
             } else if(page === 'yearly') {
                 document.getElementById('tabYearly').classList.add('active');
                 document.getElementById('pageYearly').classList.remove('hidden');
-                loadYearlySummary(); // เรียกดึงข้อมูลสะสมทั้งหมดจาก Firebase ขึ้นมาคำนวณทันที
+                loadYearlySummary();
             }
         }
 
+        // ระบบล็อกอินตรวจสอบแบบเฉพาะเจาะจงตัวเลข 5 หลัก
         function handleLogin(event) {
             event.preventDefault();
+            const userInp = document.getElementById('username').value;
+            const passInp = document.getElementById('password').value;
+
+            // เช็กซ้ำด้วย JavaScript ว่าเป็นตัวเลขล้วนและครบ 5 หลักหรือไม่
+            const digitCheck = /^\d{5}$/;
+            if (!digitCheck.test(userInp) || !digitCheck.test(passInp)) {
+                alert("⚠️ ปฏิเสธการเข้าถึง: ชื่อผู้ใช้งานและรหัสผ่านจะต้องเป็นตัวเลข 5 หลักเท่านั้น!");
+                return;
+            }
+
+            // ผ่านการตรวจเช็ก -> เปิดหน้า Dashboard 
             document.getElementById('loginSection').classList.add('hidden');
             document.getElementById('dashboardSection').classList.remove('hidden');
-            document.getElementById('displayUser').innerText = document.getElementById('username').value;
+            document.getElementById('displayUser').innerText = "รหัสประจำตัว " + userInp;
             document.getElementById('checkDate').value = new Date().toISOString().split('T')[0];
             onDateChange();
             renderOfflineYearlySummary();
         }
 
         function handleLogout() {
+            document.getElementById('username').value = "";
+            document.getElementById('password').value = "";
             document.getElementById('dashboardSection').classList.add('hidden');
             document.getElementById('loginSection').classList.remove('hidden');
         }
 
-        // ประมวลผลหาวันเพื่อเจาะจงรายวิชาเมื่อปฏิทินเปลี่ยน
         function onDateChange() {
             const selectedDate = document.getElementById('checkDate').value;
             if(!selectedDate) return;
@@ -426,7 +452,6 @@
             document.getElementById('current-date-display').innerText = "ประจำวันที่: " + new Date(selectedDate).toLocaleDateString('th-TH', dateOptions);
             document.getElementById('subjectsSection').classList.remove('hidden');
 
-            // รีเซ็ตการแสดงผลปุ่มรายวิชา
             document.getElementById('monday-subjects').style.display = 'none';
             document.getElementById('tuesday-subjects').style.display = 'none';
             document.getElementById('wednesday-subjects').style.display = 'none';
@@ -467,13 +492,12 @@
             document.getElementById('attendance-box').style.display = 'none';
         }
 
-        // 💾 ฟังก์ชันบันทึกพฤติกรรมรายวัน ส่งขึ้นสะสมใน Cloud Firebase แยกตามโฟลเดอร์ปีการศึกษา
         function saveToDatabase() {
             const selectedDate = document.getElementById('checkDate').value;
             const selectedYear = document.getElementById('academicYear').value;
 
             if(!database) {
-                alert("บันทึกข้อมูลจำลองสำเร็จ! (กรุณาต่อ Firebase Config เพื่อส่งข้อมูลไปสะสมในคลังตลอดปีการศึกษาออนไลน์)");
+                alert("บันทึกข้อมูลจำลองสำเร็จ! (กรุณาเปิดเซิร์ฟเวอร์ฐานข้อมูล Firebase)");
                 return;
             }
 
@@ -491,7 +515,6 @@
                 };
             });
 
-            // จัดเก็บข้อมูลลงฐานข้อมูลออนไลน์: years -> [ปีการศึกษา] -> attendance -> [วันที่] -> [วิชา/คาบเรียน]
             database.ref('years/' + selectedYear + '/attendance/' + selectedDate + '/' + currentActiveSubject).set(saveData, (error) => {
                 if (error) {
                     alert("เกิดปัญหาข้อผิดพลาด: " + error.message);
@@ -501,7 +524,6 @@
             });
         }
 
-        // 📊 ฟังก์ชันคำนวณสะสมสถิติ Realtime ดึงข้อมูลมา Sum ยอดรวมทั้งหมดของปีการศึกษานั้นๆ
         function loadYearlySummary() {
             if(!database) return;
             const viewYear = document.getElementById('viewYearSelect').value;
@@ -510,12 +532,10 @@
                 const allData = snapshot.val();
                 const summary = {};
 
-                // เซ็ตค่าสถิติเริ่มต้นให้ทุกคน
                 studentsList.forEach(std => {
                     summary[std.id] = { name: std.name, come: 0, leave: 0, absent: 0, sleep: 0, nobook: 0, noactive: 0 };
                 });
 
-                // วนลูปสแกนดึงข้อมูลทุกคาบ ทุกวัน ของปีการศึกษานั้นมารวมผลลัพธ์
                 if(allData) {
                     for(let date in allData) {
                         for(let subject in allData[date]) {
@@ -537,7 +557,6 @@
             });
         }
 
-        // จัดพิมพ์โครงสร้างข้อมูลสถิติตลอดปีแสดงลงตารางหน้าจอ
         function renderSummaryTable(summaryData) {
             const summaryTbody = document.getElementById('yearly-summary-tbody');
             summaryTbody.innerHTML = "";
